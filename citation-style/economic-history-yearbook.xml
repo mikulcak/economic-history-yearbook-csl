@@ -446,7 +446,7 @@
 				match="any">
 				<!-- Container-Titel -->
 				<text text-case="title" variable="container-title" prefix="in: "
-					suffix=" " />
+					suffix=", " />
 				<!-- form="short" font-style="italic" -->
 			</else-if>
 			<!-- Für alle anderen Fälle gilt: ??? <else> </else> -->
@@ -560,11 +560,11 @@
 				match="any">
 				<!-- Band und Nummer -->
 				<group delimiter="/">
-					<text variable="volume" font-style="italic" />
-					<text variable="issue" font-style="italic" />
+					<text variable="volume" font-style="italic" prefix=", "/>
+					<text variable="issue" font-style="italic" suffix=", "/>
 				</group>
 				<!-- Datum -->
-				<date variable="issued"><!-- prefix=" (" suffix=")" -->
+				<date variable="issued" ><!-- prefix=" (" suffix=")" -->
 					<date-part name="month" suffix=" " />
 					<date-part name="day" form="ordinal" suffix=" " />
 					<date-part name="year" />
@@ -660,9 +660,9 @@
 				<!-- vollständiger Nachweis (bei erster Nennung) -->
 				<else>
 					<!-- Komma nach Nennung der Namen -->
-					<text macro="contributors-long" />
-					<text macro="letter_type" prefix=", " />
-					<text macro="title-long" prefix=", " />
+					<text macro="contributors-long" suffix=", "/>
+					<text macro="letter_type" />
+					<text macro="title-long" />
 					<text macro="container" prefix=", " />
 					<text macro="issued" /><!-- prefix=", " -->
 					<text macro="archive-note" prefix=", " />
