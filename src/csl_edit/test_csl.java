@@ -49,7 +49,7 @@ public class test_csl {
 		try {
 
 			BibTeXDatabase db = new BibTeXConverter().loadDatabase(new FileInputStream(
-					"/Users/marcus/Documents/eclipse_workspaces/csl_workspace/csl_edit/bibliographies/zotero_library_smaller.bib"));
+					"/Users/marcus/Documents/eclipse_workspaces/csl_workspace/csl_edit/bibliographies/zotero_library.bib"));
 			BibTeXItemDataProvider provider = new BibTeXItemDataProvider();
 			provider.addDatabase(db);
 
@@ -77,7 +77,7 @@ public class test_csl {
 			System.out.println(citeproc.makeCitation("mackenzie_constructing_2003").get(0).getText());
 			System.out.println(citeproc.makeCitation("earle_econocracy:_2017").get(0).getText());
 
-			System.out.println(citeproc.makeCitation("thatcher_supranational_2013").get(0).getText());
+			System.out.println(citeproc.makeCitation("grant_reflections_2012").get(0).getText());
 
 			// CSLCitation test = new cslci
 			// citeproc.makeCitation(citation)
