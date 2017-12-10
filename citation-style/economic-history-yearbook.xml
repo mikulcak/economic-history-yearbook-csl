@@ -479,8 +479,8 @@
 			</if>
 		</choose>
 	</macro>
-	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
-		AUFLAGE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- AUFLAGE -->
 	<macro name="edition">
 		<choose>
 			<!-- Falls die Auflage eine Zahl ist, wird sie numerisch ausgegeben und 
@@ -497,8 +497,8 @@
 			</else-if>
 		</choose>
 	</macro>
-	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
-		VERLAGSORT/VERLEGER :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- VERLAGSORT/VERLEGER -->
 	<macro name="publisher">
 		<group delimiter=": ">
 			<text variable="publisher-place" />
@@ -506,10 +506,10 @@
 			<!-- <text variable="publisher"/> -->
 		</group>
 	</macro>
-	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
-		VERÖFFENTLICHUNG (Band, Reihe, Auflage, Verlag, Ort, Datum ...) Workaround 
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- VERÖFFENTLICHUNG (Band, Reihe, Auflage, Verlag, Ort, Datum ...) Workaround 
 		für Jahresbereiche: 1992_&_1994 schreiben und danach "Suchen und Ersetzen" 
-		im Dokument. :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+		im Dokument. --> 
 	<macro name="issued">
 		<choose>
 			<!-- Für Bücher und Beiträge in Sammelbänden gilt: -->
@@ -521,7 +521,7 @@
 				<!-- Verlagsort/Verleger -->
 				<text macro="publisher" prefix=", " />
 				<!-- Jahr -->
-				<date variable="issued" prefix=", ">
+				<date variable="issued" prefix=" ">
 					<date-part name="year" />
 				</date>
 				<!-- Reihe -->
@@ -573,8 +573,8 @@
 			<!-- Für alle anderen Fälle gilt: ??? <else> </else> -->
 		</choose>
 	</macro>
-	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
-		SEITENZAHLEN, URL, ZUGRIFFSDATUM ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- SEITENZAHLEN, URL, ZUGRIFFSDATUM -->
 	<macro name="pages">
 		<choose>
 			<!-- Seitenzahlen werden nur bei Beiträgen in Sammelbänden und Artikeln 
@@ -618,15 +618,15 @@
 			</if>
 		</choose>
 	</macro>
-	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
-		FUNDSTELLE (Seite, Kapitel, Spalte...) MIT GESCHÜTZTEM LEERZEICHEN :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
+	<!-- FUNDSTELLE (Seite, Kapitel, Spalte...) MIT GESCHÜTZTEM LEERZEICHEN -->
 	<macro name="citation-locator">
 		<label variable="locator" form="short" suffix=".&#160;"
 			strip-periods="true" />
 		<text variable="locator" />
 	</macro>
-	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
-		REGELN FÜR DIE SORTIERUNG IM LITERATURVERZEICHNIS :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- REGELN FÜR DIE SORTIERUNG IM LITERATURVERZEICHNIS -->
 	<macro name="sort-key">
 		<!-- Die Sortierung erfolgt erst nach dem 1. Titel-Beitragenden (contributors-long), 
 			dann nach Datum (issued), dann nach dem Titel des Werks (title-long). -->
@@ -634,8 +634,8 @@
 		<text macro="issued" />
 		<text macro="title-long" suffix=" " />
 	</macro>
-	<!-- ================================================================================ 
-		ERSTELLUNG DER FUßNOTEN ================================================================================ -->
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- ERSTELLUNG DER FUßNOTEN --> 
 	<citation et-al-min="4" et-al-use-first="1"
 		disambiguate-add-names="true">
 		<layout suffix="." delimiter="; ">
@@ -695,8 +695,8 @@
 			</choose>
 		</layout>
 	</citation>
-	<!-- ================================================================================ 
-		ERSTELLUNG DES LITERATURVERZEICHNISSES ================================================================================ -->
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- ERSTELLUNG DES LITERATURVERZEICHNISSES -->
 	<bibliography hanging-indent="true" et-al-min="4"
 		et-al-use-first="1" entry-spacing="0">
 		<sort>
