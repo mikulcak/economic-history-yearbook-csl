@@ -337,7 +337,7 @@
 		<group delimiter=", ">
 			<choose>
 				<if type="personal_communication">
-					<names variable="recipient" prefix="Letter to " suffix=", " />
+					<names variable="recipient" prefix="Letter to " />
 				</if>
 			</choose>
 		</group>
