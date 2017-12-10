@@ -57,13 +57,13 @@ public class test_csl {
 					// "/Users/marcus/Documents/eclipse_workspaces/csl_workspace/csl_edit/jahrbuch-fuer-wirtschaftsgeschichte.xml",
 					"/Users/marcus/Documents/eclipse_workspaces/csl_workspace/csl_edit/citation-style/economic-history-yearbook.xml",
 					StandardCharsets.UTF_8);
-			
+
 			String styleOutputFile = "/Users/marcus/Documents/eclipse_workspaces/csl_workspace/csl_edit/citation-style/output/economic-history-yearbook.csl";
-			
+
 			writeFile(styleOutputFile, file_content);
-			
+
 			System.out.println("Wrote style to " + styleOutputFile);
-			
+
 			CSL citeproc = new CSL(provider, file_content);
 
 			citeproc.setOutputFormat("html");
@@ -79,9 +79,9 @@ public class test_csl {
 
 			System.out.println(citeproc.makeCitation("thatcher_supranational_2013").get(0).getText());
 
-//			CSLCitation test = new cslci
-//			citeproc.makeCitation(citation)
-			
+			// CSLCitation test = new cslci
+			// citeproc.makeCitation(citation)
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
