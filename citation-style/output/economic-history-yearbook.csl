@@ -344,6 +344,29 @@
 	</macro>
 
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- Daten zur ersten Ausgabe -->
+
+	<!-- Dieses Makro wird noch nicht benutzt -->
+	<macro name="originally-published">
+		<group delimiter=", ">
+			<group delimiter=": ">
+				<text variable="original-publisher-place" />
+				<text variable="original-publisher" />
+				<!-- <date variable="issued" form="numeric"> <date-part name="year" /> 
+					</date> -->
+			</group>
+			<!-- <date variable="original-date" form="numeric" prefix=" "> <date-part 
+				name="year" /> </date> -->
+		</group>
+	</macro>
+
+	<macro name="original-publication-date">
+		<date variable="original-date">
+			<date-part name="year" prefix=" (" suffix=") " />
+		</date>
+	</macro>
+
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- Archiv und Fundstelle -->
 
 	<macro name="archive-note">
@@ -354,8 +377,8 @@
 		</group>
 	</macro>
 
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
-	<!-- TITEL IN LANGFORM --> 
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- TITEL IN LANGFORM -->
 	<macro name="title-long">
 		<group delimiter=", ">
 			<choose>
@@ -391,8 +414,8 @@
 			<text macro="secondary-contributors" />
 		</group>
 	</macro>
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
-	<!-- TITEL IN KURZFORM --> 
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- TITEL IN KURZFORM -->
 	<macro name="title-short">
 		<group delimiter=", ">
 			<choose>
@@ -411,7 +434,7 @@
 		</group>
 	</macro>
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- CONTAINER (Sammelband oder Zeitschrift ...) --> 
+	<!-- CONTAINER (Sammelband oder Zeitschrift ...) -->
 	<macro name="container">
 		<choose>
 			<!-- Für Beiträge in Sammelbänden gilt: -->
@@ -445,15 +468,14 @@
 				type="article-journal article-magazine article-newspaper broadcast interview manuscript map patent personal_communication song speech thesis article webpage"
 				match="any">
 				<!-- Container-Titel -->
-				<text text-case="title" variable="container-title" prefix="in: "
-					 /> <!-- suffix=", " -->
+				<text text-case="title" variable="container-title" prefix="in: " /> <!-- suffix=", " -->
 				<!-- form="short" font-style="italic" -->
 			</else-if>
 			<!-- Für alle anderen Fälle gilt: ??? <else> </else> -->
 		</choose>
 	</macro>
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- REIHE --> 
+	<!-- REIHE -->
 	<macro name="collection">
 		<!-- Name der Reihe -->
 		<text variable="collection-title" />
@@ -504,18 +526,24 @@
 			<text variable="publisher-place" />
 			<!-- Verlag selbst wird gar nicht gebraucht -->
 			<!-- <text variable="publisher"/> -->
+			<!-- Hier Daten der ersten Ausgabe einfügen -->
+			<!-- <text macro="originally-published" prefix=", " /> -->
 		</group>
 	</macro>
+
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- VERÖFFENTLICHUNG (Band, Reihe, Auflage, Verlag, Ort, Datum ...) Workaround 
 		für Jahresbereiche: 1992_&_1994 schreiben und danach "Suchen und Ersetzen" 
-		im Dokument. --> 
+		im Dokument. -->
 	<macro name="issued">
 		<choose>
 			<!-- Für Bücher und Beiträge in Sammelbänden gilt: -->
 			<if
 				type="bill book graphic legal_case motion_picture report song chapter paper-conference entry-encyclopedia"
 				match="any">
+				<!-- Nennung der Reihe zuerst -->
+				<text macro="collection" prefix=" (" suffix=")" />
+
 				<!-- Auflage -->
 				<text macro="edition" prefix=", " />
 				<!-- Verlagsort/Verleger -->
@@ -525,7 +553,6 @@
 					<date-part name="year" />
 				</date>
 				<!-- Reihe -->
-				<text macro="collection" prefix=" (" suffix=")" />
 			</if>
 			<!-- Für Webseiten gilt: -->
 			<else-if type="webpage" match="any">
@@ -543,8 +570,8 @@
 					<date-part name="year" />
 				</date>
 			</else-if>
-			<!-- Für Doktorarbeiten, Dokumente und Manuskripte gilt: -->
-			<else-if type="thesis article manuscript" match="any">
+			<!-- Für Doktorarbeiten und Manuskripte gilt: -->
+			<else-if type="thesis  manuscript" match="any">
 				<!-- Art (Magister, Promotion,...) -->
 				<text variable="genre" prefix=", " />
 				<!-- Ort (Universität Bonn,...) -->
@@ -554,14 +581,15 @@
 					<date-part name="year" />
 				</date>
 			</else-if>
-			<!-- Für Artikel gilt: -->
+			<!-- Für Artikel und Dokument gilt: -->
 			<else-if
-				type="article-journal article-magazine article-newspaper broadcast interview map patent personal_communication song speech"
+				type="article article-journal article-magazine article-newspaper broadcast interview map patent personal_communication song speech"
 				match="any">
 				<!-- Band und Nummer -->
-				<group delimiter="/">
-					<text variable="volume" font-style="italic" prefix=" "/>
-					<text variable="issue" font-style="italic"/>  <!-- suffix=", " -->
+				<text macro="collection" prefix=" (" suffix=")" />
+				<group delimiter="/" prefix=" ">
+					<text variable="volume" /> <!-- font-style="italic" -->
+					<text variable="issue" />  <!-- suffix=", " --><!-- font-style="italic" -->
 				</group>
 				<!-- Datum -->
 				<date variable="issued" prefix=", "><!-- prefix=" (" suffix=")" -->
@@ -573,6 +601,21 @@
 			<!-- Für alle anderen Fälle gilt: ??? <else> </else> -->
 		</choose>
 	</macro>
+
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<!-- Nennung des Datums von Briefen bei subsequent citations -->
+	<macro name="issued-short">
+		<choose>
+			<if type="personal_communication">
+				<date variable="issued" prefix=", "><!-- prefix=" (" suffix=")" -->
+					<date-part name="month" suffix=" " />
+					<date-part name="day" form="ordinal" suffix=" " />
+					<date-part name="year" />
+				</date>
+			</if>
+		</choose>
+	</macro>
+
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- SEITENZAHLEN, URL, ZUGRIFFSDATUM -->
 	<macro name="pages">
@@ -618,13 +661,15 @@
 			</if>
 		</choose>
 	</macro>
-	<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::-->
+
+	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- FUNDSTELLE (Seite, Kapitel, Spalte...) MIT GESCHÜTZTEM LEERZEICHEN -->
 	<macro name="citation-locator">
 		<label variable="locator" form="short" suffix=".&#160;"
 			strip-periods="true" />
 		<text variable="locator" />
 	</macro>
+
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<!-- REGELN FÜR DIE SORTIERUNG IM LITERATURVERZEICHNIS -->
 	<macro name="sort-key">
@@ -635,7 +680,7 @@
 		<text macro="title-long" suffix=" " />
 	</macro>
 	<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
-	<!-- ERSTELLUNG DER FUßNOTEN --> 
+	<!-- ERSTELLUNG DER FUßNOTEN -->
 	<citation et-al-min="4" et-al-use-first="1"
 		disambiguate-add-names="true">
 		<layout suffix="." delimiter="; ">
@@ -654,19 +699,22 @@
 					<text macro="contributors-short" suffix=", " />
 					<text macro="letter_type" prefix=", " />
 					<text macro="title-short" />
-					<text macro="archive-note" prefix=", " />
+					<text macro="issued-short" />
+					<!-- <text macro="archive-note" prefix=", " /> -->
 					<text macro="citation-locator" prefix=", " />
 				</else-if>
 				<!-- vollständiger Nachweis (bei erster Nennung) -->
 				<else>
 					<!-- Komma nach Nennung der Namen -->
-					<text macro="contributors-long" suffix=", "/>
+					<text macro="contributors-long" suffix=", " />
 					<text macro="letter_type" />
 					<text macro="title-long" />
 					<text macro="container" prefix=", " />
 					<text macro="issued" /><!-- prefix=", " -->
 					<text macro="archive-note" prefix=", " />
 					<text macro="pages" prefix=", " />
+					<!-- Jahr der Erstausgabe -->
+					<text macro="original-publication-date" />
 					<choose>
 						<!-- Bei Beiträgen in Sammelbänden und Artikeln wird die Angabe der 
 							Fundstelle in Seitenzahlen durch "here" eingeschränkt. -->
@@ -684,6 +732,9 @@
 								<if variable="page" match="all">
 									<text macro="citation-locator" prefix=", here " />
 								</if>
+								<else>
+									<text macro="citation-locator" prefix=", " />
+								</else>
 							</choose>
 						</else-if>
 						<else>
