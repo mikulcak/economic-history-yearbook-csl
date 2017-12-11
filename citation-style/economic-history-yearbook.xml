@@ -362,7 +362,7 @@
 
 	<macro name="original-publication-date">
 		<date variable="original-date">
-			<date-part name="year" prefix=" (" suffix=") " />
+			<date-part name="year" prefix=" (" suffix=")" />
 		</date>
 	</macro>
 
