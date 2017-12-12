@@ -222,7 +222,7 @@
 								strip-periods="false" />
 							<!-- Mehrere Herausgeber und/oder Übersetzer durch Komma getrennt, 
 								der letztgenannte durch "und" abgetrennt. -->
-							<name and="text" sort-separator="/" delimiter="/"
+							<name sort-separator="/" delimiter="/"
 								initialize-with=". ">
 								<!-- delimiter-precedes-last="never" -->
 								<!-- <name-part name="family" font-variant="small-caps"/> -->
@@ -438,7 +438,8 @@
 	<macro name="container">
 		<choose>
 			<!-- Für Beiträge in Sammelbänden gilt: -->
-			<if type="chapter paper-conference entry-encyclopedia" match="any">
+			<if type="chapter paper-conference entry-encyclopedia post-weblog"
+				match="any">
 				<choose>
 					<!-- Falls 1. Container-Beitragende vorhanden sind, werden sie mit vorangestelltem 
 						"in: " ausgegeben -->
@@ -539,7 +540,7 @@
 		<choose>
 			<!-- Für Bücher und Beiträge in Sammelbänden gilt: -->
 			<if
-				type="bill book graphic legal_case motion_picture report song chapter paper-conference entry-encyclopedia"
+				type="bill book graphic legal_case report song chapter paper-conference entry-encyclopedia"
 				match="any">
 				<!-- Nennung der Reihe zuerst -->
 				<text macro="collection" prefix=" (" suffix=")" />
@@ -554,6 +555,15 @@
 				</date>
 				<!-- Reihe -->
 			</if>
+
+			<!-- Bei Filmen ein Komma vor das Jahr (geht nur, wenn sie keinen Distributor 
+				haben) -->
+			<else-if type="motion_picture">
+				<date variable="issued" prefix=", ">
+					<date-part name="year" />
+				</date>
+			</else-if>
+
 			<!-- Für Webseiten gilt: -->
 			<else-if type="webpage" match="any">
 				<!-- Band und Nummer -->
@@ -645,7 +655,7 @@
 			<!-- Für Webseiten, Dissertation, Magazin-, Zeitungs- und Journal-Artikel 
 				wird die URL, wenn vorhanden angezeigt -->
 			<if
-				type="webpage thesis article article-magazine article-newspaper article-journal manuscript"
+				type="webpage thesis article article-magazine article-newspaper article-journal manuscript post-weblog"
 				match="any">
 				<text variable="URL" />
 				<group prefix=" (" suffix=")" delimiter=" ">
